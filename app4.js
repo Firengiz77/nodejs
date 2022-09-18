@@ -2,39 +2,54 @@
 const express = require('express')
 // html ucun
 const path = require('path')
+const { engine } = require('express-handlebars');
 const app = express()
 const port = 3000
 const hostname = '127.0.0.1'
+const mongoose = require('mongoose')
+
+mongoose.connect('mongodb://127.0.0.1/nodeblog',{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
 
 // static filesler ucun
 app.use(express.static('public'))
+// public icinde css falan var demekdi
 
-// app.use('/test',(req,res,next) => {
-//     console.log('i"m middleware')
-//     next()
-// })  middlewaredir
+// handlebars ucun:
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars')
+// app.set('views', './views');
 
-// terminala yazilar
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
-// yalniz / url ucun yon lendirile var demekdi bu hisse
 
 app.get('/',(req,res) => {
-    // res.send('Index page')
-    res.sendFile(path.resolve(__dirname,'index.html'))
-// path require etdikden sonra olur bu hisse
-
+    res.render('site/index')
+    // burdaki site/index viewsdakidir
 })
-// app.get('/users/:id/movies/:movieid',(req,res) => {
-//     res.send(`${req.params.id} - ${req.params.movieid}`)
-// })
-
 app.get('/about',(req,res) => {
-    res.sendFile(path.resolve(__dirname,'about.html'))
+  res.render('site/about')
 })
+
+app.get('/blog',(req,res) => {
+  res.render('site/blog')
+})
+app.get('/contact',(req,res) => {
+  res.render('site/contact')
+})
+
+app.get('/user/login',(req,res) => {
+  res.render('user/login')
+})
+app.get('/user/register',(req,res) => {
+  res.render('user/register')
+})
+// bu halda css lerin yanina / qoy yoxsa css ler geder
+// handlebars yukle npmjs.com dan express-handlebars kimi bu html i layout kimi ayirmaga komek edir
+// handlebar da mutluq views layout main.handlebars olmalidir
+
 
 
 
