@@ -30,8 +30,13 @@ router.post('/posts/add',(req,res) =>{
 
 
 router.get('/blog',(req,res) => {
-  res.render('site/blog')
+  Post.find({}).lean().then(posts => {
+    res.render('site/blog',{posts:posts})
+  })
 })
+// post modelinde her seyi gotur posts kimi et onu site icine posts kimi gonder
+
+//   res.render('site/blog')
 
 router.get('/contact',(req,res) => {
   res.render('site/contact')
@@ -44,6 +49,7 @@ router.get('/user/login',(req,res) => {
 router.get('/user/register',(req,res) => {
   res.render('user/register')
 })
+
 
 // bu halda css lerin yanina / qoy yoxsa css ler geder
 // handlebars yukle npmjs.com dan express-handlebars kimi bu html i layout kimi ayirmaga komek edir

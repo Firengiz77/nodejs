@@ -3,7 +3,7 @@
 const express = require('express')
 // html ucun
 const path = require('path')
-const { engine } = require('express-handlebars');
+const handlebars = require('express-handlebars')
 const app = express()
 const port = 3000
 const hostname = '127.0.0.1'
@@ -20,8 +20,8 @@ app.use(express.static('public'))
 // public icinde css falan var demekdi
 
 // handlebars ucun:
-app.engine('handlebars', engine());
-app.set('view engine', 'handlebars')
+app.set("view engine", 'handlebars')
+app.engine('handlebars', handlebars.engine())
 // app.set('views', './views');
 
 
