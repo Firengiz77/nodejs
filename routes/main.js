@@ -16,6 +16,14 @@ router.get('/posts/new',(req,res) => {
     res.render('site/addpost')
   })
 
+router.get('/post/:id',(req,res) => {
+   Post.findById(req.params.id).lean().then(post => {
+    res.render('site/blog_single',{post:post})
+   })
+})
+
+
+
 // post ile create olunar 
 router.post('/posts/add',(req,res) =>{
     // res.redirect('/')
